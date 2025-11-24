@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use crate::ui::menu::component::{ButtonState, ButtonImages, ExitButton, PlayButton, MainMenuUI};
 use crate::game::gamestate::AppState;
+use crate::ui::soundtrack::event::PlayButtonClick;
 
 // detect click in PLAY and change to Setup, detect click in EXIT and close game
 pub fn handle_button_clicks(
@@ -14,6 +15,7 @@ pub fn handle_button_clicks(
     sprites: Query<&Sprite>,
     mut next_state: ResMut<NextState<AppState>>,
     mut exit_query: MessageWriter<AppExit>,
+    mut button_click_message: MessageWriter<PlayButtonClick>,
 ) {
     // only if click left mouse button
     if mouse_input.just_pressed(MouseButton::Left) {
@@ -54,6 +56,7 @@ pub fn handle_button_clicks(
                 // if the cursor remains over the button: execute action
                 if detect_button(world_pos, transform, image) {
                     if play.is_some() {
+                        button_click_message.write(PlayButtonClick);
                         next_state.set(AppState::Setup);
                         info!(target: "mygame", "Starting game...");
                     } else if exit.is_some() {

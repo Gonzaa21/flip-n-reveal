@@ -5,6 +5,7 @@ use crate::game::special_cards::resource::SpecialEffect;
 use crate::game::{graveyard::component::Graveyard, turn_player::component::Turn, deck::component::Deck, hand::component::Hand, player::component::Player, special_cards::resource::SpecialCardEffect};
 use crate::game::card::handles::{handle_deck_click, handle_card_click, handle_graveyard_click};
 use crate::ui::card_animation::component::{AnimationType, CardAnimation};
+use crate::ui::soundtrack::event::{PlayCardDraw, PlayCardPlace};
 use bevy::asset::Assets;
 use bevy::image::{Image, ImageSampler};
 use rand::seq::SliceRandom;
@@ -103,6 +104,8 @@ pub fn card_selection(
     deck_query: Query<&mut Deck>,
     player_query: Query<(Entity, &Player)>,
     special_effect: Option<ResMut<SpecialCardEffect>>,
+    draw_message: MessageWriter<PlayCardDraw>,
+    place_message: MessageWriter<PlayCardPlace>,
 ) {
     if !mouse_input.just_pressed(MouseButton::Left) {
         return;
@@ -165,7 +168,7 @@ pub fn card_selection(
 
     // detect click in deck
     if detect_deck_click(world_pos, window) {
-        handle_deck_click(deck_query, turn_query, &mut card_query);
+        handle_deck_click(deck_query, turn_query, &mut card_query, draw_message);
         return;
     }
 
@@ -179,7 +182,7 @@ pub fn card_selection(
     if let Some(clicked_entity) = detect_card_click(&card_query, world_pos) {
         handle_card_click(
             clicked_entity, &mut commands, &selected_query, &mut double_click,
-            &time, turn_query, &mut card_query, &mut graveyard_query, &player_query, &mut hand_query, windows
+            &time, turn_query, &mut card_query, &mut graveyard_query, &player_query, &mut hand_query, windows, place_message
         );
         return;
     }

@@ -7,10 +7,19 @@ pub fn load_audio(
     mut commands: Commands<'_, '_>,
     asset_server: Res<AssetServer>,
 ) {
+    let card_place_path = vec![
+        asset_server.load("audio/deal/card-place-1.wav"),
+        asset_server.load("audio/deal/card-place-2.wav"),
+        asset_server.load("audio/deal/card-place-3.wav"),
+        asset_server.load("audio/deal/card-place-4.ogg"),
+        asset_server.load("audio/deal/card-place-5.ogg"),
+    ];
+
     let sound = GameAudio {
         menu: asset_server.load("audio/background/background_menu.wav"),
         game: asset_server.load("audio/background/background_game.wav"),
-        ..default()
+        card_place: card_place_path,
+        button: asset_server.load("audio/button_effect.wav"),
     };
 
     commands.insert_resource(sound);
@@ -47,7 +56,6 @@ pub fn play_menu(
             ..default()
         },
     )).id();
-    info!("Attempting to play menu music!");
 
     current_music.entity = Some(entity);
 }

@@ -62,9 +62,6 @@ pub fn deal_initial_hands (
 
                 // calculate delay
                 let delay = (i * 4 + j) as f32 * 0.15;
-
-                info!(target: "mygame", "Setting up card {} for player {}: delay={}, target={:?}", 
-                j, i, delay, target_pos);
                 
                 // insert deal animation
                 commands.entity(card_e).insert(CardAnimation {

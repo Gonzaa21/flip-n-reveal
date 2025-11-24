@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use crate::ui::back_button::component::{ButtonState, BackButton, SetupUI, ButtonImages};
+use crate::ui::soundtrack::event::PlayButtonClick;
 use crate::game::gamestate::AppState;
 use bevy::window::PrimaryWindow;
 
@@ -52,6 +53,7 @@ pub fn handle_button(
     sprites: Query<&Sprite>,
     mut button_query: Query<(&Transform, &mut ButtonState, Option<&BackButton>, Entity)>,
     mut next_state: ResMut<NextState<AppState>>,
+    mut button_click_message: MessageWriter<PlayButtonClick>,
 ) {
     // only if click left mouse button
     if mouse_input.just_pressed(MouseButton::Left) {
@@ -92,6 +94,7 @@ pub fn handle_button(
                 // if the cursor remains over the button: execute action
                 if detect_button(world_pos, transform, image) {
                     if back.is_some() {
+                        button_click_message.write(PlayButtonClick);
                         next_state.set(AppState::MainMenu);
                         info!(target: "mygame", "Return to menu...");
                     } 

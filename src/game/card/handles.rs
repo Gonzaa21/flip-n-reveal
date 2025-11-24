@@ -3,6 +3,7 @@ use bevy::window::PrimaryWindow;
 use crate::game::card::component::{Card, CardPosition, Selected, DoubleClick};
 use crate::game::{graveyard::component::Graveyard, turn_player::component::Turn, deck::component::Deck, hand::component::Hand, player::component::Player};
 use crate::game::card::utils::{card_swap, discard_card};
+use crate::ui::soundtrack::event::{PlayCardDraw, PlayCardPlace};
 
 // HANDLE CLICK SYSTEMS
 pub fn handle_card_click(
@@ -17,6 +18,7 @@ pub fn handle_card_click(
     player_query: &Query<(Entity, &Player)>,
     hand_query: &mut Query<&mut Hand>,
     windows: Query<&Window, With<PrimaryWindow>>,
+    place_message: MessageWriter<PlayCardPlace>,
 ) {
     // verify: if it is direct discard
     let card_comp = card_query.iter()
@@ -25,7 +27,7 @@ pub fn handle_card_click(
 
     if let Some(card_comp) = card_comp {
         if matches!(card_comp.position, CardPosition::DrawnCard(player_id) if player_id == turn_query.current_player) {
-            discard_card(clicked_entity, card_query, graveyard_query, turn_query, player_query, commands, selected_query);
+            discard_card(clicked_entity, card_query, graveyard_query, turn_query, player_query, commands, selected_query, place_message);
             return;
         }
     }
@@ -69,6 +71,7 @@ pub fn handle_deck_click(
     mut deck_query: Query<&mut Deck>,
     mut turn_query: ResMut<Turn>,
     card_query: &mut Query<(Entity, &mut Transform, &mut Card), With<Card>>,
+    mut draw_message: MessageWriter<PlayCardDraw>,
 ) {
     // verify if player already drew a card
     if turn_query.has_drawn_card {
@@ -109,6 +112,8 @@ pub fn handle_deck_click(
         card.from_deck = true; // card taken from deck
         
         turn_query.has_drawn_card = true; // player already drew a card
+
+        draw_message.write(PlayCardDraw);
         info!(target: "mygame", "Player {:?} drew card: {:?}", turn_query.current_player, drawn_card_entity);
     }
 }

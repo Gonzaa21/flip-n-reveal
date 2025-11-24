@@ -5,9 +5,8 @@ use bevy::prelude::*;
 pub struct GameAudio {
     pub menu: Handle<AudioSource>,
     pub game: Handle<AudioSource>,
-    pub card_place: Handle<AudioSource>,
-    pub card_deal: Handle<AudioSource>,
-    pub random: Handle<AudioSource>,
+    pub card_place: Vec<Handle<AudioSource>>,
+    pub button: Handle<AudioSource>,
 }
 
 // manage if music is playing, for default: none

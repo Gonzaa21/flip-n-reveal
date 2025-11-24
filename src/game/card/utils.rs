@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use crate::game::card::component::{Card, CardPosition, Selected};
 use crate::game::{graveyard::component::Graveyard, turn_player::component::Turn, hand::component::Hand, player::component::Player};
+use crate::ui::soundtrack::event::PlayCardPlace;
 
 // AUXILIAR SYSTEMS
 pub fn discard_card(
@@ -12,6 +13,7 @@ pub fn discard_card(
     player_query: &Query<(Entity, &Player)>,
     commands: &mut Commands,
     selected_query: &Query<Entity, With<Selected>>,
+    mut place_message: MessageWriter<PlayCardPlace>,
 ) {
     if let Ok((_, _transform, card)) = card_query.get_mut(clicked_entity) {
         if matches!(card.position, CardPosition::DrawnCard(player_id) if player_id == turn_query.current_player) {
@@ -23,6 +25,8 @@ pub fn discard_card(
                 // update graveyard
                 if let Ok(mut graveyard) = graveyard_query.single_mut() {
                     graveyard.cards.push(clicked_entity);
+                    
+                    place_message.write(PlayCardPlace);
                     info!(target: "mygame", "Card discarded directly to graveyard: {:?}", clicked_entity);
                 }
 
