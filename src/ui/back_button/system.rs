@@ -94,7 +94,7 @@ pub fn handle_button(
                 // if the cursor remains over the button: execute action
                 if detect_button(world_pos, transform, image) {
                     if back.is_some() {
-                        button_click_message.write(PlayButtonClick);
+                        button_click_message.write(PlayButtonClick); // play sound effect
                         next_state.set(AppState::MainMenu);
                         info!(target: "mygame", "Return to menu...");
                     } 

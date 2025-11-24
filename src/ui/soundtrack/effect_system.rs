@@ -14,6 +14,7 @@ pub fn play_card_draw(
     
     for _ in events.read() {
         if !audio.card_place.is_empty() {
+            // iterate and randomize sound effect card place
             let mut rng = rand::rng();
             let random_index = rng.random_range(0..audio.card_place.len());
             let selected_sound = audio.card_place[random_index].clone();

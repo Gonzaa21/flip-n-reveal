@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-// Eventos para reproducir efectos de sonido
+// messages/events for play effects
 #[derive(Event, Message)]
 pub struct PlayCardDraw;
 

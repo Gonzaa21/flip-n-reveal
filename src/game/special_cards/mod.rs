@@ -10,12 +10,7 @@ pub struct SpecialCardsPlugin;
 
 impl Plugin for SpecialCardsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (
-            detect_special_card,
-            handle_special_effects,
-            reveal_effect,
-            shuffle_effect,
-            swap_effect,
-        ).run_if(in_state(AppState::PlayerTurn)));
+        app.add_systems(Update, (detect_special_card, handle_special_effects, reveal_effect, shuffle_effect, swap_effect)
+        .run_if(in_state(AppState::PlayerTurn)));
     }
 }

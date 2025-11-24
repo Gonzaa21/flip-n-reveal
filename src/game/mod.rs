@@ -13,7 +13,6 @@ pub mod round_end;
 pub mod special_cards;
 
 use gamestate::GameStatePlugin;
-use player::PlayerPlugin;
 use hand::HandPlugin;
 use graveyard::GraveyardPlugin;
 use deck::DeckPlugin;
@@ -28,7 +27,6 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app
         .add_plugins(GameStatePlugin)
-        .add_plugins(PlayerPlugin)
         .add_plugins(HandPlugin)
         .add_plugins(GraveyardPlugin)
         .add_plugins(DeckPlugin)

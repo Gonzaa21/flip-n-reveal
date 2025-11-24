@@ -57,11 +57,11 @@ pub fn card_face(
         if let Some(anim) = animation {
             if anim.animation_type == AnimationType::Flip {
                 if anim.progress < 0.5 {
-                    // Primera mitad: mantener boca abajo
+                    // first half: keep down
                     sprite.image = card_back.0.clone();
                     continue;
                 } else {
-                    // Segunda mitad: mostrar boca arriba
+                    // second half: keep up
                     sprite.image = card.front_face.clone();
                     continue;
                 }
@@ -81,10 +81,12 @@ pub fn card_face(
 // card_selection - detect clicks
 //      detect_card_click
 //          handle_card_click - manage cards
-//              discard_card()
-//              card_swap()
+//              discard_card() - drawn card to graveyard
+//              card_swap() - swap drawn card to hand card
+//
 //      detect_deck_click
 //          handle_deck_click - draw card of the deck
+//
 //      detect_graveyard_click
 //          handle_graveyard_click - draw of the graveyard
 
@@ -237,6 +239,7 @@ pub fn card_visual(
     }
 }
 
+// sets the front and back sprite cards
 pub fn configure_texture(
     mut images: ResMut<Assets<Image>>,
     card_handles: Option<Res<CardHandles>>,

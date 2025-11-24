@@ -20,7 +20,7 @@ pub fn start_turn_system(
     }
 }
 
-// next turn player
+// finish game round
 pub fn end_round_system(
     keyboard: Res<ButtonInput<KeyCode>>,
     mut next_state: ResMut<NextState<AppState>>,

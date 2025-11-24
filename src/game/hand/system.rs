@@ -68,7 +68,7 @@ pub fn deal_initial_hands (
                     animation_type: AnimationType::Deal,
                     progress: 0.0,
                     duration: 0.3,
-                    state: AnimationState::WaitingToStart,  // o Animating
+                    state: AnimationState::WaitingToStart,
                     original_position: deck_position,
                     original_scale: tf.scale,
                     original_rotation: tf.rotation,
@@ -100,7 +100,7 @@ pub fn get_player_positions(player_i: usize, window_width: f32, window_height: f
             ]
         },
         1 => {
-            let base_y = window_height * 0.15;  // 15% up
+            let base_y = window_height * 0.15;
             let base_x = window_width * -0.06;
             let gap = window_width * 0.06;
             [

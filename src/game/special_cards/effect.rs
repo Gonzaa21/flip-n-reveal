@@ -4,6 +4,11 @@ use crate::game::{special_cards::resource::{SpecialCardEffect, SpecialEffect}, c
 use crate::ui::turn_indicator::component::CardOpacity;
 use crate::ui::card_animation::component::{CardAnimation, AnimationState, AnimationType};
 
+// special effects:
+//      - reveal --> reveal random card from your hand
+//      - shuffle --> randomize positions of hand cards
+//      - swap --> swap one card from your hand for another card from your opponent's hand
+
 pub fn reveal_effect(
     special_effect: Option<ResMut<SpecialCardEffect>>,
     mut card_query: Query<&mut Card>,
@@ -215,7 +220,7 @@ pub fn swap_effect(
                         }
                     }
 
-                    // Actualizar opacidad de target_card
+                    // update opacity of target_card
                     if let Some(mut target_opacity) = target_opacity {
                         if let CardPosition::Hand(owner) = target_card.position {
                             let new_value = if owner == turn_query.current_player { 1.0 } else { 0.2 };
@@ -224,7 +229,7 @@ pub fn swap_effect(
                         }
                     }
 
-                    // Actualizar opacidad de own_card  
+                    // update opacity of own_card 
                     if let Some(mut own_opacity) = own_opacity {
                         if let CardPosition::Hand(owner) = own_card.position {
                             let new_value = if owner == turn_query.current_player { 1.0 } else { 0.2 };
