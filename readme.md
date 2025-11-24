@@ -1,5 +1,5 @@
 # About
-Card game where players aim to achieve the **lowest score** by managing a hand of four cards. Players must memorize their initial cards, draw from the deck or discard pile, and decide when to end the round. Special cards (7, 9, 11) provide unique abilities to gain an advantage. The player with the lowest total card value wins.
+Card game where players aim to achieve the **lowest score** by managing a hand of four cards. Players must memorize their initial cards, draw from the deck or discard pile, and decide when to end the round. Special cards provide unique abilities to gain an advantage. The player with the lowest total card value wins.
 > Actually, the game is single-player, playing with AI
 
 # How to play
@@ -28,3 +28,11 @@ Card game where players aim to achieve the **lowest score** by managing a hand o
 3. Special cards from the graveyard lose their power
 4. Lower cards are always better
 5. Any player can end the round
+
+# Run Project
+```toml
+[dependencies]
+bevy = { version = "0.17.2", features = ["wav"] } 
+rand = "0.9.2"
+```
+Clone the repository and run with ```cargo run```
