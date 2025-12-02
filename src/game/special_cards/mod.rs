@@ -3,7 +3,7 @@ use crate::game::gamestate::AppState;
 
 pub mod resource;
 mod effect;
-mod system;
+pub mod system;
 use system::{detect_special_card, handle_special_effects};
 use effect::{reveal_effect, shuffle_effect, swap_effect};
 pub struct SpecialCardsPlugin;

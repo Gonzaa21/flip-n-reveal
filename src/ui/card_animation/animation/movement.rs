@@ -143,7 +143,7 @@ pub fn animate_movement(
                     card.is_being_dealt = false;
                     transform.translation = target;
 
-                    // Si es graveyard, agregar rotación aleatoria
+                    // if card position is graveyard, use random rotation
                     if matches!(card.position, CardPosition::Graveyard) {
                         let random_rotation = (rand::random::<f32>() - 0.5) * 0.15;
                         transform.rotation = Quat::from_rotation_z(random_rotation);

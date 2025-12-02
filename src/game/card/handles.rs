@@ -16,7 +16,7 @@ pub fn handle_card_click(
     card_query: &mut Query<(Entity, &mut Transform, &mut Card), With<Card>>,
     graveyard_query: &mut Query<&mut Graveyard>,
     player_query: &Query<(Entity, &Player)>,
-    hand_query: &mut Query<&mut Hand>,
+    hand_query: Query<&mut Hand>,
     windows: Query<&Window, With<PrimaryWindow>>,
     place_message: MessageWriter<PlayCardPlace>,
 ) {

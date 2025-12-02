@@ -101,7 +101,7 @@ pub fn card_selection(
     mut double_click: ResMut<DoubleClick>,
     time: Res<Time>,
     turn_query: ResMut<Turn>,
-    mut hand_query: Query<&mut Hand>,
+    hand_query: Query<&mut Hand>,
     mut graveyard_query: Query<&mut Graveyard>,
     deck_query: Query<&mut Deck>,
     player_query: Query<(Entity, &Player)>,
@@ -184,7 +184,7 @@ pub fn card_selection(
     if let Some(clicked_entity) = detect_card_click(&card_query, world_pos) {
         handle_card_click(
             clicked_entity, &mut commands, &selected_query, &mut double_click,
-            &time, turn_query, &mut card_query, &mut graveyard_query, &player_query, &mut hand_query, windows, place_message
+            &time, turn_query, &mut card_query, &mut graveyard_query, &player_query, hand_query, windows, place_message
         );
         return;
     }

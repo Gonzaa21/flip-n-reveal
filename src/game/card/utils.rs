@@ -47,7 +47,7 @@ pub fn card_swap(
     card_query: &mut Query<(Entity, &mut Transform, &mut Card), With<Card>>,
     graveyard_query: &mut Query<&mut Graveyard>,
     turn_query: ResMut<Turn>,
-    hand_query: &mut Query<&mut Hand>,
+    mut hand_query: Query<&mut Hand>,
     player_query: &Query<(Entity, &Player)>,
     windows: Query<&Window, With<PrimaryWindow>>,
     commands: &mut Commands,
